@@ -214,7 +214,7 @@ void WeaveProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     const float gate = *parameters.getRawParameterValue("midiGate") >= 0.5f && currentNote < 0 ? 0.0f : 1.0f;
     const float chance = *parameters.getRawParameterValue("chance");
     lastPitchOffset = *parameters.getRawParameterValue("pitch") + midiSemitones + pitchWheelSemitones;
-    const float outputGain = juce::Decibels::decibelsToGain(*parameters.getRawParameterValue("output"));
+    const float outputGain = juce::Decibels::decibelsToGain(parameters.getRawParameterValue("output")->load(std::memory_order_relaxed));
     const double textureInterval = rateHz * (0.115 - 0.09 * density) / scene.densityScale;
     // Rhythm uses the host tempo, falling back to 120 BPM when unavailable.
     double bpm = 120.0;

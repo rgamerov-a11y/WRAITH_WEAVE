@@ -26,3 +26,6 @@ Replace repository contents with this folder, commit, run existing GitHub Action
 Record a 2-sec sample, set Mix 100%, Variation 0.5-0.8, Density 0.5, repeatedly press NEW WEAVE. Check both Texture and Rhythm. Changes can take up to the duration of active grains to become dominant.
 
 Not yet compiled/tested on Windows or Ableton.
+
+## 0.4.1 hotfix
+Fixed MSVC C2280 in PluginProcessor.cpp (output level atomic parameter is read with load()).
