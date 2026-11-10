@@ -1,36 +1,28 @@
-# WRAITH WEAVE 0.1 — JUCE VST3 for Ableton Live (Windows 11)
+# WRAITH WEAVE 0.4 — STRONG NEW WEAVE
 
-Independent experimental plugin **inspired by the documented interaction concept** of Fieldtone Weaver. No source code, firmware, branding artwork or proprietary assets from Fieldtone are used. This is not a verified sonic replica.
+Built on 0.3 without changing plugin manufacturer/code or parameter IDs.
 
-## Implemented
-- Live stereo/mono audio input on an Ableton **audio track**.
-- RECORD 2 SEC: capture next 2 seconds of incoming audio while Ableton audio engine runs.
-- RESET: discard captured audio.
-- TEXTURE: overlapping windowed randomized grains with varying positions, playback rate and stereo pan.
-- RHYTHM: host-tempo-guided 16th note triggers, probabilistic playback.
-- NEW WEAVE: reseed and regenerate playback events (UI button rather than infinite encoder).
-- Automatable Mode, Variation, Mix and Density.
-- Soft clipping to prevent extreme output amplitudes.
-- Restore parameters with project save. **Captured audio is not saved** in version 0.1; record again after reopening or changing sample rate.
+## What changed
 
-## Automated Windows build
-1. Create a NEW GitHub repository (e.g. `WRAITH_WEAVE`) and upload the **contents** of this ZIP, preserving `.github/workflows/windows-vst3.yml`.
-2. In GitHub open `Actions` > `WRAITH WEAVE Windows VST3` > `Run workflow` (or push to `main`).
-3. Download `WRAITH-WEAVE-0.1-Windows-VST3` from the completed job's Artifacts.
-4. Extract and copy the folder `WRAITH WEAVE.vst3` into `C:\Program Files\Common Files\VST3\`.
-5. Restart Ableton Live or rescan plugins. Insert the plugin on an **audio** track and play some audio through it. Click RECORD, let >2 seconds play, and select Texture or Rhythm.
+The previous NEW WEAVE mostly altered subtle pitch bias and rhythm probabilities. Version 0.4 randomizes complete sonic scenes using six strongly differentiated rotating families:
 
-## Local compilation
-```powershell
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
-cmake --build build --config Release --target WRAITH_WEAVE_VST3
-```
-CMake downloads JUCE 8.0.6 from GitHub during configuration. Network is needed.
+- Large pitch transpositions (about -19 to +19 semitones), plus pitch spread
+- Sample focus/region and region width
+- Grain duration from very short to stretched
+- Density and layer rate
+- Reverse-playback probability
+- Half-rate movement in some scenes
+- Stereo position and changed rhythm stride/gate lengths
+- New 16-step rhythm groove on each press
 
-## Limitations / validation
-- Workflow and C++ sources are prepared, but this environment cannot run the Windows compiler or Ableton. **Build and runtime results unverified.**
-- Rhythm uses the host BPM but is not phase-aligned to the host transport position; synchronization refinement is pending.
-- RECORD and NEW WEAVE are not DAW-automatable yet; audio is not embedded in saved plugin state.
-- No MIDI input, WAV import, advanced random rules, crossfaded state transitions or finished GUI.
-- Wet signal depends on source content and may need volume matching.
-- This project is a first-pass generative prototype, not a claimed exact clone of Fieldtone's algorithms.
+Previous grains finish their envelopes to avoid abrupt clicks. New changes become clear as old grains fade out. The WAV sample is kept. A scene counter is displayed in the plugin.
+
+## Installation
+
+Replace repository contents with this folder, commit, run existing GitHub Actions Windows VST3 workflow, download artifact and replace existing plugin. Back up the working 0.3 project first.
+
+## Testing
+
+Record a 2-sec sample, set Mix 100%, Variation 0.5-0.8, Density 0.5, repeatedly press NEW WEAVE. Check both Texture and Rhythm. Changes can take up to the duration of active grains to become dominant.
+
+Not yet compiled/tested on Windows or Ableton.
