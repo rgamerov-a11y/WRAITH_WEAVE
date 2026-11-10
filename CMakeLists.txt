@@ -20,3 +20,7 @@ juce_add_plugin(WRAITH_WEAVE
 target_sources(WRAITH_WEAVE PRIVATE Source/PluginProcessor.cpp Source/PluginProcessor.h Source/PluginEditor.cpp Source/PluginEditor.h)
 target_compile_definitions(WRAITH_WEAVE PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
 target_link_libraries(WRAITH_WEAVE PRIVATE juce::juce_audio_utils juce::juce_audio_processors juce::juce_dsp PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
+
+# Generate JuceHeader.h for PluginProcessor and PluginEditor
+juce_generate_juce_header(WRAITH_WEAVE)
+
